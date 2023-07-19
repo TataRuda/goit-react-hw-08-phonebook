@@ -5,15 +5,15 @@ import { Section } from 'components/Section/Section';
 import { Filter } from 'components/Filter/Filter';
 import { Loader} from 'components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getError, getIsLoading } from 'redux/selectors';
+import { selectError, selectIsLoading } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 
 export const App = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(getIsLoading); 
-  const error = useSelector(getError); 
+  const isLoading = useSelector(selectIsLoading); 
+  const error = useSelector(selectError); 
 
   useEffect(() => {
     dispatch(fetchContacts())
