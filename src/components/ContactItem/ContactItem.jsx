@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice'; 
+import { deleteContact } from 'redux/operations'; 
 import css from './ContactItem.module.css';
 
 export const ContactItem = ({ id, name, number }) => {
@@ -12,5 +12,5 @@ export const ContactItem = ({ id, name, number }) => {
         <button className={css.btnDelete} type="button" onClick={handleDelete}>Delete</button>      
     </li>
     );
-};
+}; 
 

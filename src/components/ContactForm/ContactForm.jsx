@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { getContacts } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
@@ -30,7 +30,7 @@ export const ContactForm = () => {
     alert( `${contact.number} already exists in the contacts!`);
     return;
   }
-    dispatch(addContact({ name: contact.name, number: contact.number, id: nanoid() }));
+    dispatch(addContact({ name: contact.name, number: contact.number }));
     setContact(initialState);
   };
 
@@ -66,4 +66,4 @@ export const ContactForm = () => {
       </button>
     </form>
   );
-};
+}; 

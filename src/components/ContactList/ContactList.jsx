@@ -1,9 +1,9 @@
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
 
-export const ContactList = () => {
+
+ export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
   const filteredContacts = contacts.filter((contact) =>
@@ -14,10 +14,10 @@ export const ContactList = () => {
         <ul>
             {filteredContacts.map((contact) => (
             <ContactItem 
-            key= {nanoid()}
+            key= {contact.id}
             {...contact}
             />
             ))}
         </ul>
     )
-}
+} 
