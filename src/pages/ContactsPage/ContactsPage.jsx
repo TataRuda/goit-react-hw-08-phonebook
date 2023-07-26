@@ -1,10 +1,11 @@
-import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ContactList } from "components/ContactList/ContactList";
 import { fetchContacts } from "redux/contacts/operations";
+import { ContactForm } from "components/ContactForm/ContactForm";
+import { Filter } from "components/Filter/Filter";
 
-export default function Contacts() {
+export default function ContactsPage() {
     const dispatch = useDispatch();
 
     useEffect( () => {
@@ -13,10 +14,10 @@ export default function Contacts() {
     );
 
     return (
-        <>
-            <Helmet>
-                <title>Your contacts</title>
-            </Helmet>
+        <>           
+            <title>Your contacts</title>
+            <ContactForm/>
+            <Filter/>            
             <ContactList/>
         </>
     );

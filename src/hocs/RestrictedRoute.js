@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 
 export const RestrictedRoute = ({ redirectTo = '/', component: Component}) => {
-    const { isLogged } = useAuth();
+    const { isLoggedIn } = useAuth();
 
-    return isLogged ? <Navigate to={redirectTo} /> : Component
+    return isLoggedIn ? <Navigate to={redirectTo} /> : Component
 }
