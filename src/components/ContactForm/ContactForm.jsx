@@ -3,7 +3,14 @@ import { nanoid } from 'nanoid';
 import { selectContacts } from 'redux/contacts/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
-import css from './ContactForm.module.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+} from '@chakra-ui/react';
 
 export const ContactForm = () => {
   const initialState = { name: '', number: ''};
@@ -22,12 +29,12 @@ export const ContactForm = () => {
     e.preventDefault();
     const isDuplicate = contacts.find(({ name }) => name === contact.name);
     const isDuplicateNumber = contacts.find(({ number }) => number === contact.number);
-  if (isDuplicate) {
-    alert( `${contact.name} already exists!`);
+    if (isDuplicate) {
+    toast.error( `${contact.name} already exists!`);
     return;
-  }
-  else if (isDuplicateNumber) {
-    alert( `${contact.number} already exists in the contacts!`);
+    }
+    else if (isDuplicateNumber) {
+    toast.error( `${contact.number} already exists in the contacts!`);
     return;
   }
     dispatch(addContact({ name: contact.name, number: contact.number }));
@@ -38,32 +45,40 @@ export const ContactForm = () => {
   const numberId = nanoid();
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <label htmlFor={nameId}>Name</label>
-      <input
+    <form  onSubmit={handleSubmit} autoComplete="off">
+      <FormControl isRequired color='secondary'>
+      <FormLabel htmlFor={nameId}>Name</FormLabel>
+      <Input
         id={nameId}
         type="text"
         value={contact.name}
         onChange={handleChange}
-        pattern="[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         name="name"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        bg='white'
+        placeholder="For example Adrian, Jacob Mercer"
         required
       />
-      <label htmlFor={numberId}>Number</label>
-      <input
+      <FormLabel htmlFor={numberId} pt="10px">Number</FormLabel>
+      <Input
         id={numberId}
         type="tel"
         value={contact.number}
         onChange={handleChange}
         name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        placeholder="Enter the phone number to save"
+        bg='white'
         required
       />
-      <button className={css.button} type="submit">
+      <Button 
+      mt='40px'
+      type="submit" 
+      size='lg'
+      variant='solid'
+      color='secondary' 
+      _hover={{bgColor: 'active'}}>
         Add contact
-      </button>
+      </Button>
+      </FormControl>
     </form>
   );
 }; 
