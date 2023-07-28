@@ -1,5 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { logInUser } from 'redux/auth/operations';
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAuth } from "hooks";
 import {
   FormControl,
   FormLabel,
@@ -9,38 +13,64 @@ import {
 
 
 export const LoginForm = () => {
+  const initialState = { name: '', email: ''};
+  const [user, setUser] = useState(initialState);
+  const { isLoggedIn } = useAuth();
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    dispatch(
-        logInUser({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-    form.reset();
+  const handleChange = e => {
+    setUser(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!isLoggedIn) {
+        const resultAction = await dispatch(logInUser({
+          email: user.email,
+          password: user.password,
+        }));
+        if (resultAction.type === 'auth/login/fulfilled') {
+          setUser(initialState);
+          e.target.reset();
+          toast.success('Login successful!');
+        } else if (resultAction.type === 'auth/login/rejected') {
+          toast.error('An error occurred during login. Please try again.');
+        }
+      } else {
+        toast.error('You are already registered. Please log in instead.');
+      }
+    } catch (error) {
+      toast.error('An error occurred during login. Please try again.');
+    }
+  };
+
+  const emailIdLog = nanoid();
+  const passwordIdLog = nanoid();
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-    <FormControl onSubmit={handleSubmit} autoComplete="off"  isRequired color='secondary'>
-    <FormLabel htmlFor="emailId">
+    <FormControl isRequired color='secondary'>
+    <FormLabel htmlFor={emailIdLog}>
       Email
     </FormLabel>  
     <Input 
-    id="emailId"
+    id={emailIdLog}
+    onChange={handleChange}
     type="email" 
     name="email" 
     placeholder='Enter your email' 
     bg='white'/>
     
-    <FormLabel htmlFor='passwordId' pt='10px'>
+    <FormLabel htmlFor={passwordIdLog} pt='10px'>
       Password
     </FormLabel>  
     <Input
-    id="passwordId" 
+    id={passwordIdLog} 
+    onChange={handleChange}
     type="password" 
     name="password" 
     placeholder='Enter your password' 
