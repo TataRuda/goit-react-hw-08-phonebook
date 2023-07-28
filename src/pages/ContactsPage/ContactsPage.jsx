@@ -14,6 +14,10 @@ export default function ContactsPage() {
     }, [dispatch]
     );
 
+    useEffect(() => {
+        document.title = "Contacts MyPhonebook";
+    }, []);
+
     return (
         <Box bg='background' align="center" minH='500px' p='50px' borderRadius='10px'>               
             <ContactForm/>

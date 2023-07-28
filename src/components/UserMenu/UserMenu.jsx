@@ -17,7 +17,7 @@ export const UserMenu = () => {
             variant='solid'
             color='secondary' 
              _hover={{bgColor: 'active'}}>
-              Logout
+              Log Out
             </Button>
         </Flex>
     )

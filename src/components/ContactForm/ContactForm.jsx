@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   FormControl,
   FormLabel,
+  FormHelperText,
   Input,
   Button,
 } from '@chakra-ui/react';
@@ -54,10 +55,14 @@ export const ContactForm = () => {
         value={contact.name}
         onChange={handleChange}
         name="name"
-        bg='white'
+        pattern="^[a-zA-Z]+(([' \u2013][a-zA-Z])?[a-zA-Z]*)*$"
         placeholder="For example Adrian, Jacob Mercer"
         required
+        bg='white'
       />
+      <FormHelperText textAlign={'left'} color={'primary'}>
+         Name may contain only letters, apostrophe, dash and spaces
+      </FormHelperText>
       <FormLabel htmlFor={numberId} pt="10px">Number</FormLabel>
       <Input
         id={numberId}
@@ -65,10 +70,14 @@ export const ContactForm = () => {
         value={contact.number}
         onChange={handleChange}
         name="number"
-        placeholder="Enter the phone number to save"
+        placeholder="Enter the phone number"
         bg='white'
         required
       />
+      <FormHelperText 
+      textAlign={'left'}
+      color={'primary'}> 
+      Phone number must be digits and can contain spaces, dashes, parentheses and can start with +</FormHelperText>
       <Button 
       mt='40px'
       type="submit" 

@@ -1,6 +1,10 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 export default function HomePage () {
+  useEffect(() => {
+    document.title = "Welcome to MyPhonebook";
+}, []);
     return (
       
         <Box bg='background' align="center" h='500px' p='50px' borderRadius='10px'> 
