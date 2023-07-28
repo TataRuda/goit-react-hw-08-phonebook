@@ -6,7 +6,7 @@ export const theme = extendTheme({
     transparent: 'transparent',
     black: '#000',
     white: '#fff',
-    primary: '#38B2AC',
+    primary: '#4f7a7d',
     secondary: '#234E52',
     background: '#ddedeb',
     active: '#ED8936',
