@@ -40,7 +40,7 @@ export const RegisterForm = () => {
           e.target.reset();
           toast.success('Registration successful!');
         } else if (resultAction.type === 'auth/register/rejected') {
-          toast.error('Opps... try again!');
+          toast.error('An error occurred during registration. Please try again.');
         }
       } else {
         toast.error('An error occurred during registration. Please try again.');

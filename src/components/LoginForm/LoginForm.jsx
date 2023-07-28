@@ -41,7 +41,7 @@ export const LoginForm = () => {
           toast.error('An error occurred during login. Please try again.');
         }
       } else {
-        toast.error('You are already registered. Please log in instead.');
+        toast.error('You are already login.');
       }
     } catch (error) {
       toast.error('An error occurred during login. Please try again.');
