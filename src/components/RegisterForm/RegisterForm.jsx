@@ -35,8 +35,6 @@ export const RegisterForm = () => {
           email: user.email,
           password: user.password,
         }));
-  
-        // Проверяем, успешно ли выполнился registerUser
         if (resultAction.type === 'auth/register/fulfilled') {
           setUser(initialState);
           e.target.reset();
@@ -45,7 +43,7 @@ export const RegisterForm = () => {
           toast.error('Opps... try again!');
         }
       } else {
-        toast.error('You are already registered. Please log in instead.');
+        toast.error('An error occurred during registration. Please try again.');
       }
     } catch (error) {
       if (error?.payload?.error) {
